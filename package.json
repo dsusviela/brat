@@ -1,0 +1,36 @@
+{
+  "name": "brat",
+  "version": "1.0.0",
+  "description": "Block Runner for Agentic Testing",
+  "main": "dist/index.js",
+  "bin": {
+    "brat": "dist/index.js"
+  },
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsx src/index.ts",
+    "start": "node dist/index.js"
+  },
+  "keywords": [
+    "qa",
+    "testing",
+    "automation",
+    "playwright"
+  ],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@playwright/browser-chromium": "^1.49.0",
+    "commander": "^12.1.0",
+    "consola": "^3.2.3",
+    "mysql2": "^3.16.3",
+    "pg": "^8.17.2",
+    "playwright": "^1.49.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.2",
+    "@types/pg": "^8.16.0",
+    "tsx": "^4.19.2",
+    "typescript": "^5.7.2"
+  }
+}
