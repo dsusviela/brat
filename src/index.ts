@@ -10,7 +10,7 @@ import { RunnerError, ScenarioMetadata } from './core/types';
 const program = new Command();
 
 program
-  .name('virt-qa-agent')
+  .name('brat')
   .description('Modular QA testing workflow engine')
   .version('1.0.0');
 
