@@ -1,14 +1,13 @@
-import { Page } from 'playwright';
 import consola from 'consola';
 import { Block, Context, Environment } from '../core/types';
+import { requirePage } from '../core/context';
 
 export const clickLink: Block = {
   name: 'Click Link',
   knowledge: 'Clicks the first visible link whose text matches context.GLOBAL_LINK_TEXT. Waits up to 10s for the page to settle after the click.',
 
   async run(context: Context, _env: Environment): Promise<Context> {
-    const page: Page = context.page;
-    if (!page) throw new Error('No page in context — run "Open Page" first');
+    const page = requirePage(context);
 
     const text: string = context.GLOBAL_LINK_TEXT;
     if (!text) throw new Error('GLOBAL_LINK_TEXT is required — set it via the scenario variables section');
@@ -22,8 +21,7 @@ export const clickLink: Block = {
   },
 
   async assert(context: Context, _env: Environment): Promise<void> {
-    const page: Page = context.page;
-    if (!page) throw new Error('page not found in context');
+    const page = requirePage(context);
     const url = page.url();
     if (!url || url === 'about:blank') throw new Error('URL is blank after Click Link — navigation did not occur');
   },

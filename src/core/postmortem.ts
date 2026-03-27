@@ -1,15 +1,16 @@
 import { mkdir, writeFile } from 'fs/promises';
 import { resolve, basename } from 'path';
 import consola from 'consola';
+import { Page } from 'playwright';
 import { RunnerError, ScenarioMetadata } from './types';
 
 const POSTMORTEMS_DIR = resolve(process.cwd(), 'postmortems');
 
-async function captureAllyTree(page: any): Promise<string> {
+async function captureAllyTree(page: Page): Promise<string> {
   return page.locator('body').ariaSnapshot();
 }
 
-async function captureClickables(page: any): Promise<any[]> {
+async function captureClickables(page: Page): Promise<object[]> {
   return page.evaluate(`(() => {
     const results = [];
     const sel = 'button, a[href], input, select, textarea, [role="button"], [role="link"]';

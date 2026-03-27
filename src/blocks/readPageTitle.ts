@@ -1,6 +1,6 @@
-import { Page } from 'playwright';
 import consola from 'consola';
 import { Block, Context, Environment } from '../core/types';
+import { requirePage } from '../core/context';
 
 /**
  * Reads the current page <title> and URL, writes both into context.
@@ -17,8 +17,7 @@ export const readPageTitle: Block = {
   knowledge: 'Captures the current document.title and URL, storing them as context.pageTitle and context.pageUrl. Useful for asserting navigation landed on the right page.',
 
   async run(context: Context, _env: Environment): Promise<Context> {
-    const page: Page = context.page;
-    if (!page) throw new Error('No page in context — run "Open Page" first');
+    const page = requirePage(context);
 
     const title = await page.title();
     const url = page.url();

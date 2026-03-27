@@ -61,9 +61,10 @@ export async function runScenario(scenarioOrPath: ScenarioMetadata | string): Pr
       try {
         blockEnv = await loadEnvironment(step.envOverride, scenario.variables);
         consola.info(`Using env override "${step.envOverride}" for ${block.name}`);
-      } catch (error: any) {
+      } catch (error: unknown) {
+        const message = error instanceof Error ? error.message : String(error);
         throw new Error(
-          `Failed to load env "${step.envOverride}" for "${step.name}": ${error.message}`
+          `Failed to load env "${step.envOverride}" for "${step.name}": ${message}`
         );
       }
     }

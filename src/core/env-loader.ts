@@ -92,11 +92,12 @@ export async function loadEnvFile(
 
     consola.info(`Loaded environment "${envName}" with ${Object.keys(env).length} variable(s)`);
     return env;
-  } catch (error: any) {
-    if (error.code === 'ENOENT') {
+  } catch (error: unknown) {
+    if (error instanceof Error && (error as NodeJS.ErrnoException).code === 'ENOENT') {
       throw new Error(`Environment file not found: ${envPath}`);
     }
-    throw new Error(`Failed to parse environment file ${envPath}: ${error.message}`);
+    const message = error instanceof Error ? error.message : String(error);
+    throw new Error(`Failed to parse environment file ${envPath}: ${message}`);
   }
 }
 
